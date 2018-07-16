@@ -4,7 +4,7 @@ module.exports = {
   Query: {
     kudos: async () => {
       try {
-        await datasource.find();
+        return await datasource.find();
       } catch (err) {
         console.error("Error on kudos query", err);
         return [];
