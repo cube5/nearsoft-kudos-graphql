@@ -1,4 +1,7 @@
-require("dotenv").config();
+const path = require("path");
+const dotenvPath = path.resolve(process.cwd(), `.env.${process.env.NODE_ENV}`);
+console.log("using .env: ", `.env.${process.env.NODE_ENV}`);
+require("dotenv").config({ path: dotenvPath });
 const { ApolloServer } = require("apollo-server");
 
 const resolvers = require("./resolvers");

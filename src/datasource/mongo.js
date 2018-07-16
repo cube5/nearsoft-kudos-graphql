@@ -1,10 +1,14 @@
 const mongoose = require("mongoose");
 
-const user = process.env.MONGO_USER;
-const password = process.env.MONGO_PASSWORD;
-const db = process.env.MONGO_DATABASE;
+const {
+  MONGO_USER,
+  MONGO_PASSWORD,
+  MONGO_DATABASE,
+  MONGO_DOMAIN,
+  MONGO_PORT
+} = process.env;
 
-const uri = `mongodb://${user}:${password}@ds127811.mlab.com:27811/${db}`;
+const uri = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_DOMAIN}:${MONGO_PORT}/${MONGO_DATABASE}`;
 
 connect();
 
