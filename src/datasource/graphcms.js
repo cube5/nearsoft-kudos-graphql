@@ -14,7 +14,7 @@ const HEADERS = new Headers({
  * "kudoes" is intentional
  */
 const FIND_KUDOS = `{
-  kudoes {
+  kudoes(orderBy: createdAt_DESC) {
     id
     from
     to
