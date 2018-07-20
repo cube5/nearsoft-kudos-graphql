@@ -7,8 +7,8 @@ const SPREADSHEET_ID = process.env.SPREADSHEET_ID;
 const sheets = google.sheets({ version: "v4", auth: API_KEY });
 
 async function save(kudo) {
-  const { id, from, to, message, imgSrc, createdAt } = kudo;
-  const values = [[id, from, to, message, imgSrc, createdAt]];
+  const { id, from, to, message, imgUrl, createdAt } = kudo;
+  const values = [[id, from, to, message, imgUrl, createdAt]];
 
   try {
     const res = await sheets.spreadsheets.values.append({
@@ -46,7 +46,7 @@ async function find(filters) {
         from: row[1],
         to: row[2],
         message: row[3],
-        imgSrc: row[4],
+        imgUrl: row[4],
         createdAt: row[5]
       }));
 

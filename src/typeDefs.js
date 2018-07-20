@@ -7,7 +7,7 @@ const typeDefs = gql`
     from: String
     to: String
     message: String
-    imgSrc: String # base64
+    imgUrl: String # base64
     createdAt: String # unix timestamp
   }
 
@@ -20,7 +20,7 @@ const typeDefs = gql`
       from: String
       to: String
       message: String!
-      imgSrc: String!
+      imgUrl: String!
     ): Kudo
   }
 

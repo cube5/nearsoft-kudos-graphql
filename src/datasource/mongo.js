@@ -16,8 +16,8 @@ const kudoSchema = {
   from: String,
   to: String,
   message: String,
-  createdAt: String, // unix timestamp
-  imgSrc: String // base64
+  createdAt: Date,
+  imgUrl: String // base64
 };
 
 const Kudo = mongoose.model("kudos", kudoSchema, "kudos");

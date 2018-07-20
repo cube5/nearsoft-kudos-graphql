@@ -7,12 +7,13 @@
  * to the console which ds is being used.
  */
 function selectedDatasource() {
-  const options = ["mongo", "spreadsheet"];
-  const selected = options[0];
+  const options = ["mongo", "graphcms", "spreadsheet"];
+  const selected = options[1];
   console.info(`Using --- ${selected} --- as database.`);
   return selected;
 }
 
 // module.exports = require("./mongo");
+// module.exports = require("./graphcms");
 // module.exports = require("./spreadsheet");
 module.exports = require(`./${selectedDatasource()}`);

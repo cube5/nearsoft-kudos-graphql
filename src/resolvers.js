@@ -1,10 +1,12 @@
 const datasource = require("./datasource");
+const uploadImage = require("./uploadImage");
 
 module.exports = {
   Query: {
     kudos: async () => {
       try {
-        return await datasource.find();
+        const results = await datasource.find();
+        return results;
       } catch (err) {
         console.error("Error on kudos query", err);
         return [];
@@ -13,16 +15,19 @@ module.exports = {
   },
 
   Mutation: {
-    createKudo: async (_, { from, to, message, imgSrc }) => {
+    createKudo: async (_, { from, to, message, imgUrl }) => {
       try {
+        const savedImage = await uploadImage(imgUrl);
+        const { url, secure_url } = savedImage;
         const kudo = {
           from,
           to,
           message,
-          imgSrc,
-          createdAt: `${new Date().getTime()}`
+          imgUrl: secure_url || url,
+          createdAt: new Date()
         };
-        return await datasource.save(kudo); // returns saved kudo
+        const savedKudo = await datasource.save(kudo);
+        return savedKudo;
       } catch (err) {
         console.error("Error on createKudo mutation", err);
         return null;
