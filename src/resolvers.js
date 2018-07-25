@@ -29,7 +29,16 @@ module.exports = {
         const savedKudo = await datasource.save(kudo);
         return savedKudo;
       } catch (err) {
-        console.error("Error on createKudo mutation", err);
+        console.error("Error in createKudo mutation", err);
+        return null;
+      }
+    },
+
+    createFeedback: async (_, { message, rating }) => {
+      try {
+        return await datasource.saveFeedback({ message, rating });
+      } catch (err) {
+        console.error("Error in createFeedback mutation", err);
         return null;
       }
     }

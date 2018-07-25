@@ -47,6 +47,18 @@ const CREATE_KUDO = `
   }
 `;
 
+const CREATE_FEEDBACK = `
+  mutation createFeedback($message: String!, $rating: Rating!) {
+    createFeedback(data: {
+      message: $message
+      rating: $rating
+    }) {
+      message
+      rating
+    }
+  }
+`;
+
 const kudoMapper = kudo => ({
   _id: kudo.id,
   createdAt: kudo.createdAt,
@@ -97,7 +109,30 @@ async function save(kudoToSave) {
   }
 }
 
+async function saveFeedback({ message, rating }) {
+  try {
+    const resp = await fetch(GRAPHCMS_ENDPOINT, {
+      headers: HEADERS,
+      method: "POST",
+      body: JSON.stringify({
+        query: CREATE_FEEDBACK,
+        variables: {
+          message,
+          rating
+        }
+      })
+    });
+    const body = await resp.json();
+    const createdFeedback = body.data.createFeedback;
+    return createdFeedback;
+  } catch (err) {
+    console.error("Error saving kudo from graphcms", kudoToSave, err);
+    return null;
+  }
+}
+
 module.exports = {
   find,
-  save
+  save,
+  saveFeedback
 };

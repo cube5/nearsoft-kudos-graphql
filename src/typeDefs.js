@@ -11,6 +11,19 @@ const typeDefs = gql`
     createdAt: String # unix timestamp
   }
 
+  type Feedback {
+    id: ID
+    message: String!
+    rating: Rating!
+  }
+
+  enum Rating {
+    GOD
+    GOOD
+    REGULAR
+    SHIT
+  }
+
   type Query {
     kudos: [Kudo]
   }
@@ -22,6 +35,8 @@ const typeDefs = gql`
       message: String!
       imgUrl: String!
     ): Kudo
+
+    createFeedback(message: String!, rating: Rating!): Feedback
   }
 
 `;
