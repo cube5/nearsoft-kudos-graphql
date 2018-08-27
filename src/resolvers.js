@@ -16,6 +16,8 @@ module.exports = {
 
   Mutation: {
     createKudo: async (_, { from, to, message, imgUrl }) => {
+      const waait = millis =>
+        new Promise(resolve => setTimeout(resolve, millis));
       try {
         const savedImage = await uploadImage(imgUrl);
         const { url, secure_url } = savedImage;
@@ -28,6 +30,18 @@ module.exports = {
         };
         const savedKudo = await datasource.save(kudo);
         return savedKudo;
+
+        // The following code is for testing porpouses only, do not use in production.
+        // await waait(3000);
+        // return {
+        //   _id: "test-id",
+        //   id: "test-id",
+        //   from,
+        //   to,
+        //   message,
+        //   imgUrl:
+        //     "https://res.cloudinary.com/dtceilk6o/image/upload/v1532560503/ll5ojzzb0lav67lfqcyj.png"
+        // };
       } catch (err) {
         console.error("Error in createKudo mutation", err);
         return null;
