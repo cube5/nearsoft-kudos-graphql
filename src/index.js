@@ -1,10 +1,14 @@
 const { ApolloServer } = require("apollo-server");
+const getRemoteExecutableSchema = require("./schema");
 
-const resolvers = require("./resolvers");
-const typeDefs = require("./typeDefs");
+async function start() {
+  const schema = await getRemoteExecutableSchema();
 
-const server = new ApolloServer({ typeDefs, resolvers });
+  const server = new ApolloServer({ schema });
 
-server.listen().then(({ url }) => {
-  console.log(`🚀  Server ready at ${url}`);
-});
+  server.listen().then(({ url }) => {
+    console.log(`🚀  Server ready at ${url}`);
+  });
+}
+
+start();
