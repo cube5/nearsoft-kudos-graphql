@@ -15,14 +15,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.0.0-rc.7",
+    "apollo-server": "^2.1.0",
     "cloudinary": "^1.11.0",
-    "dotenv": "^6.0.0",
-    "graphql": "^0.13.2",
+    "dotenv": "^6.1.0",
+    "graphql": "^14.0.2",
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.1",
-    "release": "^4.0.1"
+    "nodemon": "^1.18.4",
+    "release": "^4.0.2"
   }
 }
