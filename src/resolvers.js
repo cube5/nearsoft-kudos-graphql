@@ -22,15 +22,16 @@ const CREATE_KUDO = `
     $from: String
     $to: String
     $message: String!
-    $status: Status!
+    $location: OfficeLocation!
     $imgUrl: String!
   ) {
     createKudo(
       data: {
-        from: $from,
-        to: $to,
-        message: $message,
-        status: $status,
+        from: $from
+        to: $to
+        message: $message
+        location: $location
+        status: ${STATUS}
         imgUrl: $imgUrl
       }
     ) {
@@ -38,6 +39,7 @@ const CREATE_KUDO = `
       from
       to
       message
+      location
       imgUrl
       createdAt
     }
@@ -46,7 +48,10 @@ const CREATE_KUDO = `
 
 module.exports = {
   Mutation: {
-    createKudo: async (_, { data: { from, to, message, imgUrl } }) => {
+    createKudo: async (
+      _,
+      { data: { from, to, message, location, imgUrl } }
+    ) => {
       try {
         const savedImage = await uploadImage(imgUrl);
         const { url, secure_url } = savedImage;
@@ -54,22 +59,23 @@ module.exports = {
           from,
           to,
           message,
-          imgUrl: secure_url || url,
-          status: STATUS
+          location,
+          imgUrl: secure_url || url
         };
         const data = await graphQLClient.request(CREATE_KUDO, variables);
         return data.createKudo;
 
         // // The following code is for testing porpouses only, do not use in production.
         // const waait = millis =>
-        // new Promise(resolve => setTimeout(resolve, millis));
+        //   new Promise(resolve => setTimeout(resolve, millis));
         // await waait(3000);
         // return {
-        //   _id: "test-id",
         //   id: "test-id",
         //   from,
         //   to,
         //   message,
+        //   location,
+        //   createdAt: new Date(),
         //   imgUrl:
         //     "https://res.cloudinary.com/dtceilk6o/image/upload/v1532560503/ll5ojzzb0lav67lfqcyj.png"
         // };
